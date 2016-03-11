@@ -49,3 +49,20 @@ function d($value = NULL, $die = 1){
     
     if ($die) die;
 }
+
+/**
+ * Преобразование результата работы функции выборки в асоц массив
+ * 
+ * @param recordset $rs набор строк - результат работы SELECT
+ * @return array
+ */
+function createSmartyRsArray($rs){
+    if (! $rs) return false;
+    
+    $smartyRs = array();
+    while ($row = mysql_fetch_assoc($rs)) {
+        $smartyRs[] = $row;
+    }
+    
+    return $smartyRs;
+}

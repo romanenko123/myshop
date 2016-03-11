@@ -16,7 +16,7 @@ $template = 'default';
 
 // пути к файлам шаблонов (*.tpl)
 define('TemplatePrefix', "../views/{$template}/");
-define('TemplatePostfix', '.tpl');
+define('TemplatePostfix', '.tpl.html');
 
 // пути к файлам шаблонов в вебпространстве
 define('TemplateWebPath', "/templates/{$template}/");

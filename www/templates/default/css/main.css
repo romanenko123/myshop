@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+body{
+	padding: 0;
+	display: block;
+}
+
+.hideme{
+	display: none;
+}
+
+#header{
+	height: 70px;
+	text-align: center;
+}
+
+#leftColumn{
+	width: 200px;
+	float: left;
+}
+
+#leftMenu, #loginBox, #registerBox{
+	padding-bottom: 20px;
+}
+
+#centerColumn {
+    float: left;
+    padding-left: 90px;
+    width: 600px;
+}
+
+
+#footer {
+    clear: both;
+}
+
+
+
+.menuCaption {
+    font-weight: bold;
+    padding: 3px;
+}
+
+
+.cartBox{
+	padding: 5px 0px 5px 0px;
+}
