@@ -6,6 +6,12 @@
  * 
  */
 
+function redirect($url){
+    if (! $url) $url = '/';
+    header("Location: {$url}");
+    exit;
+}
+
 /**
  * Формирование запрашиваемой страницы
  * 

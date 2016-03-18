@@ -44,3 +44,13 @@ body{
 .cartBox{
 	padding: 5px 0px 5px 0px;
 }
+
+.showHidden{
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+
+#registerBoxHidden{
+	display: none;	
+}

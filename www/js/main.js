@@ -1,3 +1,89 @@
+/**
+ *  Обновление данных пользователя
+ */
+function updateUserData(){
+	console.log("js - updateUserData()");
+	var phone = $('#newPhone').val();
+	var adress = $('#newAdress').val();
+	var pwd1 = $('#newPwd1').val();
+	var pwd2 = $('#newPwd2').val();
+	var curPwd = $('#curPwd').val();
+	var name = $('#newName').val();
+	
+	var postData = {
+			phone: phone,
+			adress: adress,
+			pwd1: pwd1,
+			pwd2: pwd2,
+			curPwd: curPwd,
+			name: name,
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "/user/update/",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data['success']){
+				$('#userLink').html(data['userName']);
+				alert(data['message']);
+			} else {
+				alert(data['message']);
+			}
+		}
+	});
+}
+
+/**
+ * Показывать ил прятать форму регистрации
+ * 
+ */
+function showRegisterBox(){
+	if($("#registerBoxHidden").css('display') != 'block'){
+		$("#registerBoxHidden").show();
+	} else {
+		$("#registerBoxHidden").hide();
+	}
+}
+
+/**
+ * Авторизация пользователя
+ * 
+ */
+function login(){
+	var postData = getData('#loginBox');
+	
+	$.ajax({
+		type: "POST",
+		url: "/user/login/",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+//			console.log(data);
+			if(data['success']){
+				$('#registerBox').hide();
+				$('#loginBox').hide();
+				
+				$('#userLink').attr('href', '/user/');
+				$('#userLink').html(data['displayName']);
+				$('#userBox').show();
+				
+				//>
+				$("#name").val(data['name']);
+				$("#phone").val(data['phone']);
+				$("#adress").val(data['adress']);
+				//<
+				
+				$("#btnSaveOrder").show();
+				
+			} else {
+				alert(data['message']);
+			}
+		}
+	});
+}
+
 function registerNewUser(){
 	var postData = getData('#registerBox');
 	
@@ -5,17 +91,18 @@ function registerNewUser(){
 		type: 'POST',
 		url: "/user/register/",
 		data: postData,
-		dataType: 'json',
+		dataType: "json",
 		success: function(data){
+			console.log(data);
 			if(data['success']){
 				alert('Регистрация прошла успешно!');
 				
 				//> блок в левом столбце
 				$('#registerBox').hide();
 				
-//				$('#userLink').attr('href', '/user/');
-//				$('#userLink').html(data['userName']);
-//				$('#userBox').show();
+				$('#userLink').attr('href', '/user/');
+				$('#userLink').html(data['userName']);
+				$('#userBox').show();
 //				//<
 //				
 //				//< страница заказа

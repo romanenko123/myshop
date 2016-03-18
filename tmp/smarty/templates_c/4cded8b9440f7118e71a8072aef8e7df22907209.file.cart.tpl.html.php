@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2016-03-11 13:14:02
+<?php /* Smarty version Smarty-3.1.21, created on 2016-03-18 11:45:01
          compiled from "..\views\default\cart.tpl.html" */ ?>
 <?php /*%%SmartyHeaderCode:1740856e298adba0822-60961411%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '4cded8b9440f7118e71a8072aef8e7df22907209' => 
     array (
       0 => '..\\views\\default\\cart.tpl.html',
-      1 => 1457694824,
+      1 => 1458294121,
       2 => 'file',
     ),
   ),
@@ -33,61 +33,65 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <?php if (!$_smarty_tpl->tpl_vars['rsProducts']->value) {?>
 	В корзине пусто.
 <?php } else { ?>
+	<form action="/cart/order/" method="POST">
+	
 	<h2>Данные заказа</h2>
-	<table>
-	  <tr>
-	    <td>№</td>
-	    <td>Наименование</td>
-	    <td>Количество</td>
-	    <td>Цена за еденицу</td>
-	    <td>Цена</td>
-	    <td>Действие</td>
-	  </tr>
-	  <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+		<table>
+		  <tr>
+		    <td>№</td>
+		    <td>Наименование</td>
+		    <td>Количество</td>
+		    <td>Цена за еденицу</td>
+		    <td>Цена</td>
+		    <td>Действие</td>
+		  </tr>
+		  <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['rsProducts']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
  $_smarty_tpl->tpl_vars['smarty']->value['foreach']['products']['iteration']=0;
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
 $_smarty_tpl->tpl_vars['item']->_loop = true;
  $_smarty_tpl->tpl_vars['smarty']->value['foreach']['products']['iteration']++;
 ?>
-	  <tr>
-	  	<td><?php echo $_smarty_tpl->getVariable('smarty')->value['foreach']['products']['iteration'];?>
+		  <tr>
+		  	<td><?php echo $_smarty_tpl->getVariable('smarty')->value['foreach']['products']['iteration'];?>
 </td>
-	  	<td>
-	  		<a href="/product/<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+		  	<td>
+		  		<a href="/product/<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 /"><?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
 </a><br />
-	  	</td>
-	  	<td>
-	  		<input name="itemCnt_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+		  	</td>
+		  	<td>
+		  		<input name="itemCnt_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 " id="itemCnt_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 " type="text" value="1" onchange="conversionPrice(<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 );"/>
-	  	</td>
-	  	<td>
-	  		<span id="itemPrice_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+		  	</td>
+		  	<td>
+		  		<span id="itemPrice_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 " value="<?php echo $_smarty_tpl->tpl_vars['item']->value['price'];?>
 ">
-	  			<?php echo $_smarty_tpl->tpl_vars['item']->value['price'];?>
+		  			<?php echo $_smarty_tpl->tpl_vars['item']->value['price'];?>
 
-	  		</span>
-	  	</td>
-	  	<td>
-	  		<span id="itemRealPrice_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+		  		</span>
+		  	</td>
+		  	<td>
+		  		<span id="itemRealPrice_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 ">
-	  			<?php echo $_smarty_tpl->tpl_vars['item']->value['price'];?>
+		  			<?php echo $_smarty_tpl->tpl_vars['item']->value['price'];?>
 
-	  		</span>
-	  	</td>
-	  	<td>
-	  		<a id="removeCart_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+		  		</span>
+		  	</td>
+		  	<td>
+		  		<a id="removeCart_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 " href="#" onClick="removeFromCart(<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 ); return false" title="Удалить из корзины">Удалить из корзины</a>
-			<a id="addCart_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
+				<a id="addCart_<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 " class="hideme" href="#" onClick="addToCart(<?php echo $_smarty_tpl->tpl_vars['item']->value['id'];?>
 ); return false;" title="Востановить">Востановить</a>
-	  	</td>
-	  </tr>
-	  <?php } ?>
-	</table>
+		  	</td>
+		  </tr>
+		  <?php } ?>
+		</table>
+		<input type="submit" value="Оформить заказ"/>
+	</form>
 <?php }?><?php }} ?>
