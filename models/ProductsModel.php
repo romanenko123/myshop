@@ -4,6 +4,78 @@
  * Модель для таблицы продуктов (products)
  */
 
+function updateProductImage($itemId, $newFileName){
+    $rs = updateProduct($itemId, null, null, null, null, null, $newFileName);
+    
+    return $rs;
+}
+
+function updateProduct($itemId, $itemName, $itemPrice, $itemStatus, $itemDesc, $itemCat, $newFileName = NULL){
+    
+    $set = array();
+    
+    if ($itemName) {
+        $set[] = "`name` = '{$itemName}'";
+    }
+    
+    if ($itemPrice > 0) {
+        $set[] = "`price` = '{$itemPrice}'";
+    }
+
+    if ($itemStatus !== 0) {
+        $set[] = "`status` = '{$itemStatus}'";
+    }
+
+    if ($itemDesc) {
+        $set[] = "`description` = '{$itemDesc}'";
+    }
+
+    if ($itemCat) {
+        $set[] = "`category_id` = '{$itemCat}'";
+    }
+
+    if ($newFileName) {
+        $set[] = "`image` = '{$newFileName}'";
+    }
+    
+    $setStr = implode($set, ", ");
+    
+    $sql = "UPDATE `products` SET {$setStr} WHERE `id` = '{$itemId}'";
+    
+    $rs = mysql_query($sql);
+    
+    return $rs;
+}
+
+/**
+ * Добавление нового товара
+ * 
+ * @param string $itemName Название продукта
+ * @param integer $itemPrice Цена
+ * @param string $itemDesc Описание
+ * @param integer $itemCat ID категории
+ * @return type
+ */
+function insertProduct($itemName, $itemPrice, $itemDesc, $itemCat){
+    $sql = "INSERT INTO `products`(`category_id`, `name`, `description`, `price`) 
+            VALUES ('{$itemCat}', '{$itemName}', '{$itemDesc}', '{$itemPrice}')";
+    
+    $rs = mysql_query($sql);
+    
+    return $rs;
+}
+
+/**
+ * 
+ */
+function getProducts(){
+    $sql = "SELECT * FROM `products` ORDER BY `category_id`";
+    
+    $rs = mysql_query($sql);
+    
+    return createSmartyRsArray($rs);
+}
+
 /**
  * Получаем последние добавленные товары
  * 

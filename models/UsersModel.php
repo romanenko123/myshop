@@ -4,6 +4,19 @@
  * Модель для работы пользователей (users) 
  */
 
+
+/**
+ * Получить данные заказа текущего пользователя
+ * 
+ * @return array массив заказов с привязкой к продукции
+ */
+function getCurUserOrders(){
+    $userId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : null;
+    $rs = getOrdersWithProductsByUser($userId);
+    
+    return $rs;
+}
+
 /**
  * Изменение данных пользователя
  * 

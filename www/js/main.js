@@ -1,4 +1,39 @@
 /**
+ * Показывать или пятать данные о заказе
+ * @param id
+ */
+function showProducts(id){
+	var objName = "#purchasesForOrderId_" + id;
+	if( $(objName).css('display') != 'table-row' ){
+		$(objName).show();
+	} else {
+		$(objName).hide();
+	}
+}
+
+/**
+ * Сохранение заказа
+ * 
+ */
+function saveOrder(){
+	var postData = getData('form');
+	$.ajax({
+		type: "POST",
+		url: "/cart/saveorder/",
+		data: postData,
+		dataType: "json",
+		success: function(data){
+			if(data['success']){
+				alert(data['message']);
+				document.location = '/';
+			} else {
+				alert(data['message']);
+			}
+		}
+	});
+}
+
+/**
  *  Обновление данных пользователя
  */
 function updateUserData(){
@@ -103,12 +138,12 @@ function registerNewUser(){
 				$('#userLink').attr('href', '/user/');
 				$('#userLink').html(data['userName']);
 				$('#userBox').show();
-//				//<
-//				
-//				//< страница заказа
-//				$('#loginBox').hide();
-//				$('#btnSaveOrder').show();
-//				//>
+				//<
+				
+				//< страница заказа
+				$('#loginBox').hide();
+				$('#btnSaveOrder').show();
+				//>
 			} else {
 				alert(data['message']);
 			}

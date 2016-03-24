@@ -5,6 +5,82 @@
  */
 
 /**
+ * Обновление категории
+ * 
+ * @param integer $itemId ID категории
+ * @param integer $parentId ID главной категории
+ * @param string $newName новое имя категории
+ * @return type
+ */
+function updateCategoryData($itemId, $parentId = -1, $newName = ''){
+    
+    $set = array();
+    
+    if ($newName) {
+        $set[] = "`name` = '{$newName}'";
+    }
+    
+    if ($parentId > -1) {
+        $set[] = "`parent_id` = '{$parentId}'";
+    }
+    
+    $setStr = implode($set, ", ");
+    $sql = "UPDATE `categories` SET {$setStr} WHERE `id` = '{$itemId}'";
+    
+    $rs = mysql_query($sql);
+    
+    return $rs;
+}
+
+/**
+ * Получить все категории
+ * 
+ * @return array массив категорий
+ */
+function getAllCategories(){
+    $sql = "SELECT * FROM `categories` ORDER BY `parent_id` ASC";
+    
+    $rs = mysql_query($sql);
+    
+    return createSmartyRsArray($rs);
+}
+
+/**
+ * Добавление новой категории
+ * 
+ * @param string $catName Название категории
+ * @param integer $catParentId ID родительской категории
+ * @return integer id новой категории
+ */
+function insertCat($catName, $catParentId = 0){
+    
+    // готовим запрос
+    $sql = "INSERT INTO `categories`(`parent_id`, `name`) VALUES ('{$catParentId}', '{$catName}')";
+    
+    // выполняем запрос
+    mysql_query($sql);
+    
+    // получаем id добавленной записи
+    $id = mysql_insert_id();
+    
+    return $id;
+}
+
+/**
+ * Получить все главные категории (категории которые не являються дочерними)
+ * 
+ * @return array массив категорий
+ */
+function getAllMainCategories(){
+    
+    $sql = "SELECT * FROM `categories` WHERE `parent_id` = '0'";
+    
+    $rs = mysql_query($sql);
+    
+    return createSmartyRsArray($rs);
+}
+
+/**
  * Получить дочернии категории для категории $catId
  * 
  * @param integer $catId ID категории

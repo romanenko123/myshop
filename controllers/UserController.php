@@ -6,8 +6,9 @@
 
 // подключаем необходимые модели
 include_once '../models/CategoriesModel.php';
-// include_once '../models/OrdersModel.php';
 include_once '../models/UsersModel.php';
+include_once '../models/OrdersModel.php';
+include_once '../models/PurchaseModel.php';
 
 /**
  * Обновление данных пользователя
@@ -77,10 +78,15 @@ function indexAction($smarty){
         redirect('/');
     }
     
+    // получаем список категорий для меню
     $rsCategories = getAllMainCatsWithChildren();
+    
+    //получаем список заказов для пользователя
+    $rsUserOrders = getCurUserOrders();
     
     $smarty->assign('pageTitle', 'Страница пользователя');
     $smarty->assign('rsCategories', $rsCategories);
+    $smarty->assign('rsUserOrders', $rsUserOrders);
     
     loadTemplate($smarty, 'header');
     loadTemplate($smarty, 'user');
