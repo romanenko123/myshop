@@ -1,3 +1,3 @@
 <?php
 echo "test";
-echo "test for new rim branch!";
+echo "new str for rim";
