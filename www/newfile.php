@@ -1,3 +1,3 @@
 <?php
 echo "test";
-echo "new str for master";
+echo "new str2 for master";
