@@ -1,3 +1,3 @@
 <?php
 echo "test";
-echo "new str3 for rim";
+echo "new str4 for rim";
