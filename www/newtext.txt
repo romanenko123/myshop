@@ -1,2 +1,1 @@
-first str for newtext file
-
+test str for newtext file
