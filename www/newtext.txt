@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-first str for newtext file from rim
-=======
-Ferst str for newtext file
->>>>>>> master
+test str for newtext file
