@@ -1,2 +1,2 @@
 <?php
-echo "test str for newfile";
+echo "test str for newfile from rim";
