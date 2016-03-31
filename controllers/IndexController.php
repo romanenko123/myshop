@@ -1,4 +1,7 @@
 <?php
+/**
+ * Контроллер главной стр
+ */
 
 function testAction()
 {
