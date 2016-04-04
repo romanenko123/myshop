@@ -16,7 +16,7 @@ define('TemplatePrefix', "../views/{$template}");
 define('TemplatePostfix', ".tpl");
 
 // пути к файлам шаблонов в вебпространстве
-// define('TemplateWebPath', "/templates/{$template}/");
+define('TemplateWebPath', "/templates/{$template}/");
 //<
 
 //> Инициализация шаблонизатора Smarty
@@ -29,5 +29,5 @@ $smarty->setCompileDir('../tmp/smarty/templates_c');
 $smarty->setCacheDir('../tmp/smarty/cache');
 $smarty->setConfigDir('../library/Smarty/configs');
 
-// $smarty->assign('teplateWebPath', TemplateWebPath);
+$smarty->assign('teplateWebPath', TemplateWebPath);
 //<

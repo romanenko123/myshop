@@ -17,5 +17,7 @@ function indexAction($smarty)
 {
     $smarty->assign('pageTitle', "Главная стр сайта");
     
+    loadTemplate($smarty, "header");
     loadTemplate($smarty, "index");
+    loadTemplate($smarty, "footer");
 }
