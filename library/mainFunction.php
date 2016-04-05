@@ -26,7 +26,7 @@ function d($value, $die = 1)
  * @param string $actionName название акшина обработки стр
  */
 
-function loadPage($smarty, $controllerName, $actionName = "index")
+function loadPage($link, $smarty, $controllerName, $actionName = "index")
 {
     // подключаем нужный контроллер
     include_once PathPrefix . $controllerName . PathPostfix;
@@ -35,7 +35,7 @@ function loadPage($smarty, $controllerName, $actionName = "index")
     $function = $actionName . "Action";
 
     // выполняем нашу функцию
-    $function($smarty);
+    $function($link, $smarty);
 }
 
 /**
