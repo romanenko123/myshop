@@ -5,6 +5,23 @@
  */
 
 /**
+ * Преобразование результата работы выборки в ассоциативный массив
+ * @param unknown $result
+ * @return array
+ */
+function getArrResultFromDB($result)
+{
+    if (! $result) return false;
+
+    $arrResult = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $arrResult[] = $row;
+    }
+
+    return $arrResult;
+}
+
+/**
  * Функция отладки. Останавливает значение прграммы выводя значение переменной
  * 
  * @param unknown $value
