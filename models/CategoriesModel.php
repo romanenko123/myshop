@@ -4,6 +4,22 @@
  * Модель для таблицы категорий (categories)
  */
 
+/**
+ * Получить данные категории по Id
+ * 
+ * @param integer $catId Id категории
+ * @return array массив - строка категории
+ */
+function getCatById($link, $catId)
+{
+    $catId = intval($catId);
+    
+    $query = "SELECT * FROM `categories` WHERE `id` = '{$catId}'";
+    
+    $result = $link->query($query);
+    
+    return (mysqli_fetch_assoc($result));
+}
 
 /**
  * Получить дочерние категории по parent_id ($catId)
