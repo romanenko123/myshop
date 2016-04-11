@@ -31,7 +31,7 @@ function indexAction($link, $smarty)
     if ($resultCategory['parent_id'] == 0) {
         $resultChildCats = getChildrenForCat($link, $catId);
     }   else {
-        $resultProducts = getProductById($link, $catId);
+        $resultProducts = getProductByCatId($link, $catId);
     }
     
     $resultCategories = getAllMainCatsWithChildren($link);

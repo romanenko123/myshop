@@ -11,7 +11,7 @@
  * @param integer $catId Id категории
  * @return array массив продуктов
  */
-function getProductById($link, $catId)
+function getProductByCatId($link, $catId)
 {
     $catId = intval($catId);
     
@@ -20,6 +20,24 @@ function getProductById($link, $catId)
     $result = $link->query($query);
     
     return (getArrResultFromDB($result));
+}
+
+/**
+ * Получить продукт по id $itemId
+ * 
+ * @param object $link
+ * @param integer $itemId Id продукта
+ * @return array массив данных продукта
+ */
+function getProductById($link, $itemId)
+{
+    $itemId = intval($itemId);
+    
+    $query = "SELECT * FROM `products` WHERE `id` = '{$itemId}'";
+    
+    $result = $link->query($query);
+    
+    return (mysqli_fetch_assoc($result));
 }
 
 /**
