@@ -26,7 +26,7 @@ function indexAction($link, $smarty)
     
     $resultCategories = getAllMainCatsWithChildren($link);
     
-    $smarty->assign('pageTitle', "");
+    $smarty->assign('pageTitle', $resultProduct['name']);
     
     $smarty->assign('resultCategories', $resultCategories);
     $smarty->assign('resultProduct', $resultProduct);
