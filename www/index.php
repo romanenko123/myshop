@@ -1,4 +1,10 @@
 <?php
+session_start(); // старт сесси
+
+// если в сессии нет масива корзины то создаем его
+if (! isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
 
 include_once '../config/config.php'; // Инициализация настроек
 include_once '../config/db.php'; // Инициализация базы данных
@@ -9,6 +15,8 @@ $controllerName = isset($_GET['controller']) ? ucfirst($_GET['controller']) : "I
 
 // определяем необходимое действие
 $actionName = isset($_GET['action']) ? $_GET['action'] : "index";
+
+$smarty->assign('cartCntItems', count($_SESSION['cart']));
 
 loadPage($link, $smarty, $controllerName, $actionName);
 
