@@ -26,6 +26,11 @@ function indexAction($link, $smarty)
     
     $resultCategories = getAllMainCatsWithChildren($link);
     
+    $smarty->assign('itemInCart', 0);
+    if (in_array($itemId, $_SESSION['cart'])) {
+        $smarty->assign('itemInCart', 1);
+    }
+    
     $smarty->assign('pageTitle', $resultProduct['name']);
     
     $smarty->assign('resultCategories', $resultCategories);

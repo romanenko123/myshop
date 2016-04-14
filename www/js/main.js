@@ -19,3 +19,25 @@ function addToCart(itemId) {
 		}
 	});
 }
+
+/**
+ * Удаление товара в корзину
+ * 
+ * @param integer itemId ID продукта
+ * @return в случае успеха обновяться данные корзины на стр
+ */
+function removeFromCart(itemId) {
+	console.log(itemId);
+	$.ajax({
+		url: "/cart/removefromcart/" + itemId + "/",
+		dataType: "json",
+		success: function(data){
+			if(data["success"]){
+				$("#cartCntItems").html(data["cntItems"]);
+				
+				$("#addCart_" + itemId).show();
+				$("#removeCart_" + itemId).hide();
+			}
+		}
+	});
+}

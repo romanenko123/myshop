@@ -33,5 +33,27 @@ function addtocartAction()
     }
     
     echo  json_encode($resData);
+}
+
+/**
+ * Удаление продукта из корзины
+ * 
+ * @param integer id GET параметр - ID добавляемого продукта
+ * @return json информация об операции (успех, кол-во элементов в корзине)
+ */
+function removefromcartAction()
+{
+    $itemId = isset($_GET['id']) ? intval($_GET['id']) : null;
+    if (! $itemId) return false;
     
+    $resData = array();
+    $key = array_search($itemId, $_SESSION['cart']);
+    if ($key !== false) {
+        unset($_SESSION['cart'][$key]);
+        $resData['success'] = true;
+        $resData['cntItems'] = count($_SESSION['cart']);
+    } else {
+        $resData['success'] = false;
+    }
+    echo  json_encode($resData);
 }
