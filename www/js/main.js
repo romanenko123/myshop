@@ -1,4 +1,17 @@
 /**
+ * Подсчет стоимости купленного товара
+ * 
+ * @param integer itemId ID подукта
+ */
+function conversionPrice(itemId){
+	var newCnt = $("#itemCnt_" + itemId).val();
+	var itemPrice = $("#itemPrice_" + itemId).attr("value");
+	var itemRealPrice = newCnt * itemPrice;
+	
+	$("#itemRealPrice_" + itemId).html(itemRealPrice);
+}
+
+/**
  * Функция добавления товара в корзину
  * 
  * @param integer itemId ID продукта

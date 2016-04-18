@@ -5,6 +5,25 @@
  */
 
 /**
+ * Получить продукты для массива id-шников ($itemsIds)
+ * 
+ * @param object $link
+ * @param array $itemsIds itemsIds продуктов
+ * @return array массив продуктов
+ */
+function getProductsFromArray($link, $itemsIds)
+{
+    $strIds = implode($itemsIds, ', ');
+    
+    $query = "SELECT * FROM `products` WHERE `id` IN ({$strIds})";
+    
+    $result = $link->query($query);
+    
+    return (getArrResultFromDB($result));
+    
+}
+
+/**
  * Получить продукты для категории $itemId
  * 
  * @param object $link

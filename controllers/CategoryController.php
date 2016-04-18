@@ -13,8 +13,8 @@ include_once '../models/ProductsModel.php';
 /**
  * Формирование стр категорий
  * 
- * @param object $link
- * @param object $smarty
+ * @param obj $link линк для бд
+ * @param object $smarty шаблонизатор
  */
 function indexAction($link, $smarty)
 {

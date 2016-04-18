@@ -15,6 +15,7 @@ function testAction()
 /**
  * Формирование главной стр сайта
  * 
+ * @param obj $link линк для бд
  * @param object $smarty шаблонизатор
  */
 function indexAction($link, $smarty)

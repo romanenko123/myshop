@@ -11,6 +11,28 @@ include_once '../models/CategoriesModel.php';
 include_once '../models/ProductsModel.php';
 
 /**
+ * Формирование стр корзины
+ * 
+ * @param obj $link линк для бд
+ * @param object $smarty шаблонизатор
+ */
+function indexAction($link, $smarty)
+{
+    $itemsIds = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
+    
+    $resultCategories = getAllMainCatsWithChildren($link);
+    $resultProducts = getProductsFromArray($link, $itemsIds);
+    
+    $smarty->assign("pageTitle", "Корзина");
+    $smarty->assign("resultCategories", $resultCategories);
+    $smarty->assign("resultProducts", $resultProducts);
+    
+    loadTemplate($smarty, "header");
+    loadTemplate($smarty, "cart");
+    loadTemplate($smarty, "footer");
+}
+
+/**
  * Добавление продукта в корзину
  * 
  * @param integer id GET параметр - ID добавляемого продукта
