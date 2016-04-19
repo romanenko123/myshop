@@ -1,7 +1,7 @@
 <?php
 
 /**
- * categoryController.php
+ * CategoryController.php
  * 
  * Контроллер стр категорий (/category/1)
  */
