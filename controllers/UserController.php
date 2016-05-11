@@ -16,6 +16,35 @@ include_once '../models/UsersModel.php';
 // }
 
 /**
+ * AJAX авторизация пользователя
+ *
+ * @param object $link обьект db
+ *            
+ * @return json массив данных залогиненого пользователя
+ */
+function loginAction($link)
+{
+    $email = isset($_REQUEST['loginEmail']) ? $_REQUEST['loginEmail'] : null;
+    $email = trim($email);
+    
+    $pwd = isset($_REQUEST['loginPwd']) ? $_REQUEST['loginPwd'] : null;
+    $pwd = trim($pwd);
+    
+    $userData = loginUser($link, $email, $pwd);
+    
+    if ($userData['success']) {
+        if (strlen($userData['name']) === 0) {
+            $userData['name'] = $userData['email'];
+        } 
+        $_SESSION['user'] = $userData;
+    } else {
+        $userData['message'] = "Проверьте правильность ввода email и пароль";
+    }
+    
+    echo json_encode($userData);
+}
+
+/**
  * разлогиневание пользователя
  */
 function logoutAction()
@@ -60,19 +89,18 @@ function registerAction($link)
         
         $userData = registerNewUser($link, $email, $pwdMD5, $name, $phone, $adress);
         if ($userData['success']) {
-            $resultData['message'] = "Пользователь успешно зарегистрирован";
-            $resultData['success'] = true;
             
-            $resultData['userName'] = $userData['name'] ? $userData['name'] : $userData['email'];
-            $resultData['userEmail'] = $userData['email'];
+            if (strlen($userData['name']) === 0) {
+                $userData['name'] = $userData['email'];
+            } 
             
             $_SESSION['user'] = $userData;
-            $_SESSION['user']['displayName'] = $userData['name'] ? $userData['name'] : $userData['email'];
+            $userData['message'] = "Пользователь успешно зарегистрирован";
+            
         } else {
-            $resultData['success'] = false;
-            $resultData['message'] = "Ошибка регистрации";
+            $userData['message'] = "Ошибка регистрации";
         }
     }
     
-    echo json_encode($resultData);
+    echo json_encode($userData);
 }

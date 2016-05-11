@@ -12,6 +12,31 @@ function getData(obj_form) {
 	return hData;
 }
 
+function login() {
+	var postData = getData("#loginBox");
+	
+	$.ajax({
+		type : "POST",
+		url : "/user/login/",
+		data : postData,
+		dataType : "json",
+		success : function(data){
+			if (data['success']) {
+				console.log(data);
+				$('#registerBox').hide();
+				$('#loginBox').hide();
+				
+				$("#userLink").attr("href", "/user/");
+				$("#userLink").html(data['name']);
+				$("#userBox").show();
+			} else {
+				alert(data['message']);
+			}
+		}
+	});
+	
+}
+
 /**
  * регистрация нового пользователя
  */
@@ -24,14 +49,15 @@ function registerNewUser() {
 		data : postData,
 		dataType : "json",
 		success : function(data) {
+			console.log(data);
 			if (data['success']) {
-				alert("Регистрация прошла успешно");
+				alert(data['message']);
 
 				// > блок в левом столбце
 				$('#registerBox').hide();
 
 				$("#userLink").attr("href", "/user/");
-				$("#userLink").html(data['userName']);
+				$("#userLink").html(data['name']);
 				$("#userBox").show();
 //				// <
 //				// > стр заказа

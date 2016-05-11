@@ -5,6 +5,33 @@
  */
 
 /**
+ * Получение залогиненого пользователя
+ * 
+ * @param string $email
+ * @param string $pwd
+ * @param string $link
+ * 
+ * @return array массив данных пользователя
+ */
+function loginUser($link, $email, $pwd)
+{
+    $email = htmlspecialchars(mysqli_real_escape_string($link, $email)); 
+    $pwd = md5($pwd);
+   
+    $query = "SELECT `id`, `email`, `pwd`, `name` FROM `users` WHERE `email` = '{$email}' AND `pwd` = '{$pwd}' LIMIT 1";
+    $result = $link->query($query);
+    $result = mysqli_fetch_assoc($result);
+    
+    if ($result) {
+        $result['success'] = true;
+    } else {
+        $result['success'] = false;
+    }
+    
+    return $result;
+}
+
+/**
  * Проверка адреса email
  * 
  * @param string $email
@@ -74,7 +101,7 @@ function registerNewUser($link, $email, $pwdMD5, $name, $phone, $adress)
     $result = $link->query($query);
     
     if ($result) {
-        $query = "SELECT * FROM `users` WHERE (`email` = '{$email}' AND `pwd` = '{$pwdMD5}') LIMIT 1";
+        $query = "SELECT `id`, `email`, `pwd`, `name` FROM `users` WHERE (`email` = '{$email}' AND `pwd` = '{$pwdMD5}') LIMIT 1";
         $result = $link->query($query);
         $result = mysqli_fetch_assoc($result);
         

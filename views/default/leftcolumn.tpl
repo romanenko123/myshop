@@ -17,6 +17,15 @@
 				<a href="/user/logout/" onclick="logout();">Выход</a>
 			</div>
 			
+			<div id="loginBox">
+				<div class="menuCaption">Авторизация</div>
+				email:<br>
+				<input type="text" id="loginEmail" name="loginEmail" value=""><br>
+				пароль:<br>
+				<input type="password" name="loginPwd" value=""><br>
+				<input type="button" onclick="login();" value="Войти">
+			</div>
+			
 			<div id="registerBox">
 				<div class="menuCaption showHidden" onclick="showRegisterBox();">Регистрация</div>
 				<div id="registerBoxHidden">
