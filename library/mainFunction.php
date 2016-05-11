@@ -5,6 +5,19 @@
  */
 
 /**
+ * редирект
+ * @param string $url адресс для перенаправления
+ */
+function redirect($url)
+{
+    if (! $url) {
+        $url = "/";
+    }
+    header("Location: {$url}");
+    exit();
+}
+
+/**
  * Преобразование результата работы выборки в ассоциативный массив
  * @param unknown $result
  * @return array

@@ -12,17 +12,32 @@ include_once '../models/UsersModel.php';
 
 // function indexAction($link)
 // {
-//     checkUserEmail($link, "email@com.ua");
+// checkUserEmail($link, "email@com.ua");
 // }
+
+/**
+ * разлогиневание пользователя
+ */
+function logoutAction()
+{
+    if (isset($_SESSION['user'])) {
+        unset($_SESSION['user']);
+        unset($_SESSION['cart']);
+    }
+    
+    redirect('/');
+}
 
 /**
  * AJAX регистрация пользователя
  * Инициализация сессионной переменной ($_SESSION['user'])
- * 
- * @param object $link for db
+ *
+ * @param object $link
+ *            for db
  * @return json массив данных нового пользователя
  */
-function registerAction($link) {
+function registerAction($link)
+{
     $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : null;
     $email = trim($email);
     $pwd1 = isset($_REQUEST['pwd1']) ? $_REQUEST['pwd1'] : null;

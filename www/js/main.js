@@ -29,10 +29,10 @@ function registerNewUser() {
 
 				// > блок в левом столбце
 				$('#registerBox').hide();
-//
-//				$("#userlink").attr("href", "/user/");
-//				$("#userlink").html(data['userName']);
-//				$("#userBox").show();
+
+				$("#userLink").attr("href", "/user/");
+				$("#userLink").html(data['userName']);
+				$("#userBox").show();
 //				// <
 //				// > стр заказа
 //				$("#loginBox").hide();
