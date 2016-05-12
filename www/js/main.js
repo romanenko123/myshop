@@ -1,3 +1,13 @@
+function showRegisterBox() {
+	if ($("#registerBoxHidden").css("display") != "block") {
+		$("#registerBoxHidden").show();
+		$("#loginBox").hide();
+	} else {
+		$("#registerBoxHidden").hide();
+		$("#loginBox").show();
+	}
+}
+
 /**
  * получение данных с форм
  */
