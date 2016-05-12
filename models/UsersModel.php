@@ -4,12 +4,57 @@
  * Модель для таблицы пользователей (users)
  */
 
+
+/**
+ * Изменение данных пользователя
+ * 
+ * @param string $name имя пользователя
+ * @param string $phone телефон
+ * @param string $adress адрес
+ * @param string $pwd1 новый пароль
+ * @param string $pwd2 повтор нового пароля
+ * @param string $curPwd текущий пароль
+ * @param obj $link db
+ * 
+ * @return boolean true в случае успеха
+ */
+function updateUserData($link, $name, $phone, $adress, $pwd1, $pwd2, $curPwd)
+{
+    $email = htmlspecialchars(mysqli_real_escape_string($link, $_SESSION['user']['email'])); 
+    $name = htmlspecialchars(mysqli_real_escape_string($link, $name)); 
+    $phone = htmlspecialchars(mysqli_real_escape_string($link, $phone)); 
+    $adress = htmlspecialchars(mysqli_real_escape_string($link, $adress)); 
+    $pwd1 = trim($pwd1);
+    $pwd2 = trim($pwd2);
+    
+    $newPwd = null;
+    if ($pwd1 && ($pwd1 == $pwd2)) {
+        $newPwd = md5($pwd1);
+    }
+    
+    $query = "UPDATE `users` SET ";
+    if ($newPwd) {
+        $query .= "`pwd` = '{$newPwd}',";
+    }
+    $query .= "
+            `name` = '{$name}',
+            `phone` = '{$phone}',
+            `adress` = '{$adress}' 
+            WHERE 
+            `email` = '{$email}' AND `pwd` = '{$curPwd}' 
+            LIMIT 1
+        ";
+    $result = $link->query($query);
+    
+    return $result;
+}
+
 /**
  * Получение залогиненого пользователя
  * 
  * @param string $email
  * @param string $pwd
- * @param string $link
+ * @param obj $link db
  * 
  * @return array массив данных пользователя
  */
@@ -18,7 +63,7 @@ function loginUser($link, $email, $pwd)
     $email = htmlspecialchars(mysqli_real_escape_string($link, $email)); 
     $pwd = md5($pwd);
    
-    $query = "SELECT `id`, `email`, `pwd`, `name` FROM `users` WHERE `email` = '{$email}' AND `pwd` = '{$pwd}' LIMIT 1";
+    $query = "SELECT * FROM `users` WHERE `email` = '{$email}' AND `pwd` = '{$pwd}' LIMIT 1";
     $result = $link->query($query);
     $result = mysqli_fetch_assoc($result);
     
@@ -101,7 +146,7 @@ function registerNewUser($link, $email, $pwdMD5, $name, $phone, $adress)
     $result = $link->query($query);
     
     if ($result) {
-        $query = "SELECT `id`, `email`, `pwd`, `name` FROM `users` WHERE (`email` = '{$email}' AND `pwd` = '{$pwdMD5}') LIMIT 1";
+        $query = "SELECT * FROM `users` WHERE (`email` = '{$email}' AND `pwd` = '{$pwdMD5}') LIMIT 1";
         $result = $link->query($query);
         $result = mysqli_fetch_assoc($result);
         

@@ -16,6 +16,29 @@ include_once '../models/UsersModel.php';
 // }
 
 /**
+ * отображение стр пользователя
+ * 
+ * @param obj $link линк для бд
+ * @param object $smarty шаблонизатор
+ */
+function indexAction($link, $smarty)
+{
+    // если пользователь не залогинен то редирект на стартовую стр
+    if (! isset($_SESSION['user'])) {
+        redirect("/");
+    }
+    
+    $resultCategories = getAllMainCatsWithChildren($link);
+    
+    $smarty->assign("pageTitle", "Страница пользователя");
+    $smarty->assign("resultCategories", $resultCategories);
+    
+    loadTemplate($smarty, "header");
+    loadTemplate($smarty, "user");
+    loadTemplate($smarty, "footer");
+}
+
+/**
  * AJAX авторизация пользователя
  *
  * @param object $link обьект db
