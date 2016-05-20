@@ -1,3 +1,25 @@
+/**
+ * обновление данных пользователя
+ */
+function updateUserData() {
+	var postData = getData("#updateUserData");
+	console.log(postData);
+	$.ajax({
+		type : "POST",
+		url : "/user/update/",
+		data : postData,
+		dataType : "json",
+		success : function(data){
+			if (data['success']) {
+				$("#userLink").html(data['name']);
+				alert(data['message']);
+			} else {
+				alert(data['message']);
+			}
+		}
+	});
+}
+
 function showRegisterBox() {
 	if ($("#registerBoxHidden").css("display") != "block") {
 		$("#registerBoxHidden").show();
@@ -18,7 +40,6 @@ function getData(obj_form) {
 			hData[this.name] = this.value;
 		}
 	});
-	console.log(hData);
 	return hData;
 }
 
